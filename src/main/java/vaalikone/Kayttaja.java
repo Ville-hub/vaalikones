@@ -63,6 +63,7 @@ public class Kayttaja implements Serializable {
     }
 
     /**
+     * Get points from the pisteet list
      * Hae pisteet-listasta yksittäiset pisteet
      *
      * @param ehdokasId ehdokkaan id-numero
@@ -77,6 +78,7 @@ public class Kayttaja implements Serializable {
     }
 
     /**
+     * Set points compared to specific candidate
      * Aseta pisteet tiettyyn ehdokkaaseen nähden
      *
      * @param ehdokasId ehdokkaan id-numero
@@ -87,6 +89,7 @@ public class Kayttaja implements Serializable {
     }
 
     /**
+     * Get single users answer to the question
      * Hae yksittäinen käyttäjän vastaus kysymykseen
      *
      * @param index kysymyksen numero
@@ -97,6 +100,7 @@ public class Kayttaja implements Serializable {
     }
 
     /**
+     * Add answer
      * Lisää vastaus
      *
      * @param index kysymyksen numero
@@ -110,13 +114,18 @@ public class Kayttaja implements Serializable {
     }
 
     /**
+     * Get best candidates ordered based on the points
      * Hae parhaat ehdokkaat pistemäärän mukaan järjesteltynä
      *
      * @return Tuple-lista, (ehdokkaan id, pisteet)
      */
     public ArrayList<Tuple<Integer, Integer>> haeParhaatEhdokkaat() {
 
-        /* Järjestä pisteet sisältävä Tuple.
+        /* 
+         * sort Tuple that contains pisteet(points)
+         * By default Javas Collections.sort sorts lists from smallest to largest
+         * Collectios.reverseOrder sorts them the other way, largets to smallers
+         * Järjestä pisteet sisältävä Tuple.
          *  Javan Collections.sort oletuksena järjestää listat pienimmästä suurimpaan
          *  Collections.reverseOrder kääntää järjestyksen toisin päin
          */
@@ -128,7 +137,8 @@ public class Kayttaja implements Serializable {
 
         return this.pisteet;
     }
-
+    //Creating the comparator required to sort the Tuple
+    //source: http://stackoverflow.com/questions/5690537/sorting-a-tuple-based-on-one-of-the-fields
     //Tuplen järjestämiseen tarvittavan comparatorin muodostaminen
     //lähde: http://stackoverflow.com/questions/5690537/sorting-a-tuple-based-on-one-of-the-fields
     //Comparator<Tuple<Integer, Integer>> comparator = (Tuple<Integer, Integer> o1, Tuple<Integer, Integer> o2) -> o1.pisteet.compareTo(o2.pisteet);
