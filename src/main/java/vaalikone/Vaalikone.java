@@ -33,6 +33,7 @@ import persist.Kysymykset;
 import persist.Vastaukset;
 
 /**
+ * Vaalikone-servletm responsible for the actual functions of the vaalikone
  * Vaalikone-servlet, vastaa vaalikoneen varsinaisesta toiminnallisuudesta
  *
  * @author Jonne
@@ -56,7 +57,7 @@ public class Vaalikone extends HttpServlet {
             throws ServletException, IOException {
 
         int kysymys_id;
-        // get http-sessio and create new one if the old one doesn't exist
+        // get http-session and create new one if the old one doesn't exist
         // hae http-sessio ja luo uusi jos vanhaa ei ole vielä olemassa
         HttpSession session = request.getSession(true);
         //get user object from the http-session
@@ -164,7 +165,7 @@ public class Vaalikone extends HttpServlet {
                             "SELECT v FROM Vastaukset v WHERE v.vastauksetPK.ehdokasId=?1");
                     qV.setParameter(1, i);
                     List<Vastaukset> vastausList = qV.getResultList();
-                    //Iterare through the vaustaslist (answerlist)
+                    //Iterate through the vaustaslist (answerlist)
                     //iteroi vastauslista läpi
                     for (Vastaukset eVastaus : vastausList) {
                         int pisteet;

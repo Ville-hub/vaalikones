@@ -33,6 +33,7 @@ public class Kayttaja implements Serializable {
     private final static Logger logger = Logger.getLogger(Loki.class.getName());
 
     /**
+     * Save the user info to the Kayttaja object (User object)
      * Kayttaja-olioon tallennetaan vaalikoneen käyttäjän tietoja.
      */
 //    public Kayttaja() {
@@ -46,7 +47,7 @@ public class Kayttaja implements Serializable {
 //    }
 
     public void taytaVastauksetJaPisteet() {
-
+    	//Fill the lists ready
         //täytelläänhän listat valmiiksi
         for (int i = 0; i < 20; i++) {
             this.vastaus.add(0);
