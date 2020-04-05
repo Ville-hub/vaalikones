@@ -66,7 +66,7 @@ public class Vaalikone extends HttpServlet {
         //jos kÃ¤yttÃ¤jÃ¤-oliota ei lÃ¶ydy sessiosta, luodaan sinne sellainen
         if (usr == null) {
             usr = new Kayttaja();
-            logger.log(Level.FINE, "Luotu uusi käyttäjäolio");
+            logger.log(Level.FINE, "Luotu uusi kï¿½yttï¿½jï¿½olio");
             session.setAttribute("usrobj", usr);
         }
         EntityManagerFactory emf=null;
@@ -214,6 +214,7 @@ public class Vaalikone extends HttpServlet {
             request.setAttribute("pisteet", tpl.get(jarjestysnumero).pisteet);
             request.setAttribute("jarjestysnumero", jarjestysnumero);
             request.getRequestDispatcher("/tulokset.jsp")
+            
                     .forward(request, response);
 
             // Sulje tietokantayhteys
