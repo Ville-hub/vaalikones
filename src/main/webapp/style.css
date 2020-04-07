@@ -65,4 +65,14 @@ body {
 	margin-right: auto;
 	text-align: center;
 	}
-	
+#settingsbtn{
+	float:right;
+	margin-left: auto;
+	margin-right: auto;
+	width: 150px;
+	height: 50px;
+	display: block;
+	margin-top: 20px;
+	font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", "Arial Black", sans-serif;
+	font-style: normal;
+	font-size: large;
