@@ -32,10 +32,49 @@
             <a href="Vaalikone?func=haeEhdokas&numero=<%= jarjestysnumero - 1%>">Edellinen ehdokas</a>&nbsp; 
             <% }
                 if (jarjestysnumero < 18) {%>
-     
                 
-                     <jsp:include page="results.jsp" />
-                     
          <a href="Vaalikone?func=haeEhdokas&numero=<%= jarjestysnumero + 1%>">Seuraavaksi paras ehdokas</a>
          
          
+            
+            <% }
+
+                for (Ehdokkaat seParasEhdokas : parhaatEhdokkaat) {
+            %>
+
+            <h2>Numero: <%= seParasEhdokas.getEhdokasId()%></h2>
+            <h3>Sinulle <%= jarjestysnumero %>. paras ehdokas</h3>
+            <h3>Yhteensopivuus: <%= prosentit%>%</h3>
+            <ul>
+                <li><b>Nimi:</b><%= seParasEhdokas.getEtunimi()%> <%= seParasEhdokas.getSukunimi()%></li>
+                <li><b>Ikä:</b><%= seParasEhdokas.getIka()%></li>
+                <li><b>Kotipaikkakunta:</b><%= seParasEhdokas.getKotipaikkakunta()%></li>
+                <li><b>Ammatti:</b><%= seParasEhdokas.getAmmatti()%></li>
+                <li><b>Puolue:</b><%= seParasEhdokas.getPuolue()%></li>
+            </ul>
+            <h2>Miksi haluat eduskuntaan?</h2>
+            <p><%= seParasEhdokas.getMiksiEduskuntaan()%></p>
+            <h2>Mitä asioita haluat edistää?</h2>
+            <p><%= seParasEhdokas.getMitaAsioitaHaluatEdistaa()%></p>
+
+            <% }
+
+                for (int i = 0; i < parhaanEhdokkaanVastaukset.size(); i++) {
+            %>
+            <b>Kysymys <%= i + 1%>: <%= kaikkiKysymykset.get(i).getKysymys()%></b><br>
+            <ul>
+                <li>Sinun vastaus: <%= kayttajanVastaukset.get(i + 1).toString()%></li>
+                <li>Ehdokkaan vastaus: <%= parhaanEhdokkaanVastaukset.get(i).getVastaus()%></li>
+                <li>Ehdokkaan kommentti: <%= parhaanEhdokkaanVastaukset.get(i).getKommentti()%></li>
+            </ul>
+
+
+            <%
+                }
+
+            %>
+
+        </div>
+
+    </body>
+</html>

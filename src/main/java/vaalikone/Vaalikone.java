@@ -123,7 +123,7 @@ public class Vaalikone extends HttpServlet {
                     request.setAttribute("kysymykset", kysymysList);
                     request.getRequestDispatcher("/vastaus.jsp")
                             .forward(request, response);
-
+                   
                 } finally {
                     // Sulje tietokantayhteys
                     if (em.getTransaction().isActive()) {
@@ -131,9 +131,13 @@ public class Vaalikone extends HttpServlet {
                     }
                     em.close();
                 }
+               
 
                 //jos kysymykset loppuvat, lasketaan tulos!
-            } else {
+            } 
+            
+           
+            else {
 
                 //Tyhjennetään piste-array jotta pisteet eivät tuplaannu mahdollisen refreshin tapahtuessa
                 for (int i = 0; i < 20; i++) {
@@ -181,7 +185,7 @@ public class Vaalikone extends HttpServlet {
         if ("haeEhdokas".equals(strFunc)) {
             //luetaan url-parametristä "top-listan järjestysnumero". Jos ei määritelty, haetaan PARAS vaihtoehto.
             String strJarjestysnumero = request.getParameter("numero");
-            Integer jarjestysnumero = 0;
+            Integer jarjestysnumero = 1;
             if (strJarjestysnumero != null) {
                 jarjestysnumero = Integer.parseInt(strJarjestysnumero);
             }
