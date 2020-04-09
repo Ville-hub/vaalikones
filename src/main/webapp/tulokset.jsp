@@ -3,7 +3,7 @@
     Created on : 14-Apr-2015, 18:26:35
     Author     : Jonne
 --%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="persist.Kysymykset"%>
 <%@page import="persist.Vastaukset"%>
 <%@page import="java.util.List"%>
@@ -27,11 +27,24 @@
                 Double pisteet = (double) (Integer) request.getAttribute("pisteet");
                 Double prosentit = (double) Math.round(pisteet / (3 * 19) * 100);
                 Integer jarjestysnumero = (Integer) request.getAttribute("jarjestysnumero");
+                Integer ehdokasId = (Integer) request.getAttribute("ehdokasId");
 
-                if (jarjestysnumero > 0) {%>
+
+                if (jarjestysnumero > 0 & jarjestysnumero != 1) {%>
             <a href="Vaalikone?func=haeEhdokas&numero=<%= jarjestysnumero - 1%>">Edellinen ehdokas</a>&nbsp; 
             <% }
-                if (jarjestysnumero < 18) {%>
+                
+                if (prosentit == 0) {%>
+                
+                <br>
+                
+                <b> There are no more canditates to be displayed</b>
+                
+                <br>
+                
+                   
+                   <% }
+                if (jarjestysnumero < 18 & prosentit != 0) {%>
                 
          <a href="Vaalikone?func=haeEhdokas&numero=<%= jarjestysnumero + 1%>">Seuraavaksi paras ehdokas</a>
          
