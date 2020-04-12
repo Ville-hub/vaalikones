@@ -140,7 +140,7 @@ public class Vaalikone extends HttpServlet {
             else {
 
                 //Tyhjennetään piste-array jotta pisteet eivät tuplaannu mahdollisen refreshin tapahtuessa
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < 22; i++) {
                     usr.pisteet.set(i, new Tuple<>(0, 0));
                 }
 

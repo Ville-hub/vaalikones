@@ -28,8 +28,10 @@ public class Kayttaja implements Serializable {
 	 */
 
 //	private final ArrayList<Integer> vastaus = new ArrayList<>(20);
-	private ArrayList<Integer> vastaus = new ArrayList<>(20);
-    ArrayList<Tuple<Integer, Integer>> pisteet = new ArrayList<>(20);
+	private ArrayList<Integer> vastaus = new ArrayList<>(100);
+	// stores answers in ArrayList
+    ArrayList<Tuple<Integer, Integer>> pisteet = new ArrayList<>(100);
+    // stores points in ArrayList
     private final static Logger logger = Logger.getLogger(Loki.class.getName());
 
     /**
@@ -48,9 +50,10 @@ public class Kayttaja implements Serializable {
     public void taytaVastauksetJaPisteet() {
 
         //täytelläänhän listat valmiiksi
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 100; i++) {
             this.vastaus.add(0);
             this.pisteet.add(new Tuple<>(0, 0));
+            // adds the answers and points to the ArrayList and Tuple
         }
 
     }
@@ -65,9 +68,11 @@ public class Kayttaja implements Serializable {
     /**
      * Hae pisteet-listasta yksittäiset pisteet
      *
+     *
      * @param ehdokasId ehdokkaan id-numero
      * @return pisteet ehdokkaaseen nähden
      */
+    // searchs points for specific ehdokas
     public Integer getPisteet(int ehdokasId) {
         if (this.pisteet.size() >= ehdokasId) {
             return this.pisteet.get(ehdokasId).pisteet;
@@ -120,10 +125,11 @@ public class Kayttaja implements Serializable {
          *  Javan Collections.sort oletuksena järjestää listat pienimmästä suurimpaan
          *  Collections.reverseOrder kääntää järjestyksen toisin päin
          */
-        //Collections.sort(this.pisteet, Collections.reverseOrder(comparator));
+      //  Collections.sort(this.pisteet, Collections.reverseOrder(comparator));
         
         this.pisteet.stream().forEach((tpl) -> {
             logger.log(Level.INFO, "Ehdokas ID={0} pisteet={1}", new Object[]{tpl.ehdokasId, tpl.pisteet});
+          
         });
 
         return this.pisteet;

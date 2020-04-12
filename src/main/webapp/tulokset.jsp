@@ -38,7 +38,7 @@
                 
                 <br>
                 
-                <b> There are no more canditates to be displayed</b>
+                <b> <h2>There are no more canditates to be displayed</b> </h2>
                 
                 <br>
                 
@@ -78,7 +78,7 @@
             <ul>
                 <li>Sinun vastaus: <%= kayttajanVastaukset.get(i + 1).toString()%></li>
                 <li>Ehdokkaan vastaus: <%= parhaanEhdokkaanVastaukset.get(i).getVastaus()%></li>
-                <li>Ehdokkaan kommentti: <%= parhaanEhdokkaanVastaukset.get(i).getKommentti()%></li>
+                
             </ul>
 
 

@@ -10,6 +10,7 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="style.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         
     </head>
     <body>
@@ -20,12 +21,10 @@ and open the template in the editor.
                 <h1>Vaalikone</h1>
             </div>
                 <br>
-                                <form action="Vaalikone">
-                                <input id="submitnappi" type="submit" value="Aloita" name="btnAloita" />                   
-                                </form>
-           
-           
-         <input type="button" value ="admin center" onclick="window.location.href='admincenter.jsp'; return false;" >
+        
+
+   Congrats! Your entry has been added succesfully!
+        
            
         </div>
     </body>

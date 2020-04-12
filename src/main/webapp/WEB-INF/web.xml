@@ -12,11 +12,33 @@
     <servlet-name>Vaalikone</servlet-name>
     <servlet-class>vaalikone.Vaalikone</servlet-class>
   </servlet>
+
+  <servlet>
+    <servlet-name>AddCandidateServlet</servlet-name>
+    <servlet-class>vaalikone.AddCandidateServlet</servlet-class>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>Vaalikone</servlet-name>
     <url-pattern>/Vaalikone</url-pattern>
   </servlet-mapping>
+
+ <servlet-mapping>
+    <servlet-name>AddCandidateServlet</servlet-name>
+    <url-pattern>/AddCandidateServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AddCandidateQuestionsServlet</servlet-name>
+    <servlet-class>vaalikone.AddCandidateQuestionsServlet</servlet-class>
+  </servlet>
+
+ <servlet-mapping>
+    <servlet-name>AddCandidateQuestionsServlet</servlet-name>
+    <url-pattern>/AddCandidateQuestionsServlet</url-pattern>
+  </servlet-mapping>
+  
+
   <session-config>
     <session-timeout>30</session-timeout>
   </session-config>

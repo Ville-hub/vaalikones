@@ -68,6 +68,8 @@ public class Ehdokkaat implements Serializable {
 	@Column(name = "AMMATTI")
 	private String ammatti;
 
+	
+	// sets the maximum length for and defines if String or Integer
 	/**
 	 *
 	 */
