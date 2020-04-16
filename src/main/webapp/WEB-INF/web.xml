@@ -13,13 +13,19 @@
     <servlet-name>Vaalikone</servlet-name>
     <servlet-class>vaalikone.Vaalikone</servlet-class>
   </servlet>
-  
-  <servlet-mapping>
+
+  <servlet>
+    <servlet-name>AddCandidateServlet</servlet-name>
+    <servlet-class>vaalikone.AddCandidateServlet</servlet-class>
+  </servlet>
+    
+    <servlet-mapping>
     <servlet-name>Vaalikone</servlet-name>
     <url-pattern>/Vaalikone</url-pattern>
   </servlet-mapping>
-<<<<<<< Updated upstream
-=======
+  
+  
+
 
  <servlet-mapping>
     <servlet-name>AddCandidateServlet</servlet-name>
@@ -58,7 +64,7 @@
   
   
 
->>>>>>> Stashed changes
+
   <session-config>
     <session-timeout>30</session-timeout>
   </session-config>

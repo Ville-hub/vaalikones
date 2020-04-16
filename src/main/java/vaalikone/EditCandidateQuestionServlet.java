@@ -231,11 +231,10 @@ public class EditCandidateQuestionServlet extends HttpServlet {
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
-								 
-								 
-								 preparedStmt.setString(1, "1");
+								 preparedStmt.setString(1, question1option1);
 								 preparedStmt.setLong(2, id);
-								 preparedStmt.setString(3, question1option1);	 
+								 preparedStmt.setString(3, "1");
+									 
 								
 
 								  preparedStmt.execute();
@@ -246,16 +245,14 @@ public class EditCandidateQuestionServlet extends HttpServlet {
 				        	if(question1option2 != null) {
 				        		String sql = "UPDATE VASTAUKSET "
 										   + "SET VASTAUS=? "
-										   + "WHERE EHDOKAS_ID=? AND KYSYMYS_ID=?";
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='1'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setString(1, "1");
-								 preparedStmt.setLong(2, id);
-								 preparedStmt.setString(3, question1option2);
 								 
+								 preparedStmt.setString(1, question1option2);
 								
 
 								  preparedStmt.execute();

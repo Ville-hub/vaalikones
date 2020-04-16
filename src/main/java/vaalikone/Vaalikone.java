@@ -67,7 +67,7 @@ public class Vaalikone extends HttpServlet {
         //jos käyttäjä-oliota ei löydy sessiosta, luodaan sinne sellainen
         if (usr == null) {
             usr = new Kayttaja();
-            logger.log(Level.FINE, "Luotu uusi k�ytt�j�olio");
+            logger.log(Level.FINE, "Luotu uusi k�ytt�j�olio");
             session.setAttribute("usrobj", usr);
         }
         EntityManagerFactory emf=null;
@@ -133,7 +133,7 @@ public class Vaalikone extends HttpServlet {
                     request.setAttribute("kysymykset", kysymysList);
                     request.getRequestDispatcher("/vastaus.jsp")
                             .forward(request, response);
-
+                   
                 } finally {
                 	// Close the database connection
                     // Sulje tietokantayhteys
@@ -142,12 +142,16 @@ public class Vaalikone extends HttpServlet {
                     }
                     em.close();
                 }
-                //if questions run out/end, calculate the result
+               
+
                 //jos kysymykset loppuvat, lasketaan tulos!
-            } else {
-            	//Empty the pisteet(points) array so that the points don't double with a possible page refresh
+            } 
+            
+           
+            else {
+
                 //Tyhjennetään piste-array jotta pisteet eivät tuplaannu mahdollisen refreshin tapahtuessa
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < 22; i++) {
                     usr.pisteet.set(i, new Tuple<>(0, 0));
                 }
                 //Query the list of candidates
@@ -193,7 +197,7 @@ public class Vaalikone extends HttpServlet {
         	//read from url-parameter "top-listan järjestysnumero". If it's not defined get the best option.
             //luetaan url-parametristä "top-listan järjestysnumero". Jos ei määritelty, haetaan PARAS vaihtoehto.
             String strJarjestysnumero = request.getParameter("numero");
-            Integer jarjestysnumero = 0;
+            Integer jarjestysnumero = 1;
             if (strJarjestysnumero != null) {
                 jarjestysnumero = Integer.parseInt(strJarjestysnumero);
             }
@@ -226,6 +230,7 @@ public class Vaalikone extends HttpServlet {
             request.setAttribute("pisteet", tpl.get(jarjestysnumero).pisteet);
             request.setAttribute("jarjestysnumero", jarjestysnumero);
             request.getRequestDispatcher("/tulokset.jsp")
+            
                     .forward(request, response);
             // Close the database connection
             // Sulje tietokantayhteys

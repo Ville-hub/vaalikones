@@ -3,7 +3,7 @@
     Created on : 14-Apr-2015, 18:26:35
     Author     : Jonne
 --%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="persist.Kysymykset"%>
 <%@page import="persist.Vastaukset"%>
 <%@page import="java.util.List"%>
@@ -27,19 +27,36 @@
                 Double pisteet = (double) (Integer) request.getAttribute("pisteet");
                 Double prosentit = (double) Math.round(pisteet / (3 * 19) * 100);
                 Integer jarjestysnumero = (Integer) request.getAttribute("jarjestysnumero");
+                Integer ehdokasId = (Integer) request.getAttribute("ehdokasId");
 
-                if (jarjestysnumero > 0) {%>
+
+                if (jarjestysnumero > 0 & jarjestysnumero != 1) {%>
             <a href="Vaalikone?func=haeEhdokas&numero=<%= jarjestysnumero - 1%>">Edellinen ehdokas</a>&nbsp; 
             <% }
-                if (jarjestysnumero < 18) {%>
-            <a href="Vaalikone?func=haeEhdokas&numero=<%= jarjestysnumero + 1%>">Seuraavaksi paras ehdokas</a>
+                
+                if (prosentit == 0) {%>
+                
+                <br>
+                
+                <b> <h2>There are no more canditates to be displayed</b> </h2>
+                
+                <br>
+                
+                   
+                   <% }
+                if (jarjestysnumero < 18 & prosentit != 0) {%>
+                
+         <a href="Vaalikone?func=haeEhdokas&numero=<%= jarjestysnumero + 1%>">Seuraavaksi paras ehdokas</a>
+         
+         
+            
             <% }
 
                 for (Ehdokkaat seParasEhdokas : parhaatEhdokkaat) {
             %>
 
             <h2>Numero: <%= seParasEhdokas.getEhdokasId()%></h2>
-            <h3>Sinulle <%= jarjestysnumero+1 %>. paras ehdokas</h3>
+            <h3>Sinulle <%= jarjestysnumero %>. paras ehdokas</h3>
             <h3>Yhteensopivuus: <%= prosentit%>%</h3>
             <ul>
                 <li><b>Nimi:</b><%= seParasEhdokas.getEtunimi()%> <%= seParasEhdokas.getSukunimi()%></li>
@@ -61,7 +78,7 @@
             <ul>
                 <li>Sinun vastaus: <%= kayttajanVastaukset.get(i + 1).toString()%></li>
                 <li>Ehdokkaan vastaus: <%= parhaanEhdokkaanVastaukset.get(i).getVastaus()%></li>
-                <li>Ehdokkaan kommentti: <%= parhaanEhdokkaanVastaukset.get(i).getKommentti()%></li>
+                
             </ul>
 
 
