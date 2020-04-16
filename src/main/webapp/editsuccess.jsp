@@ -21,13 +21,9 @@ and open the template in the editor.
                 <h1>Vaalikone</h1>
             </div>
                 <br>
-        
-
-   Congrats! Your entry has been added succesfully!
-   
-   <input type="button" value ="Home" onclick="window.location.href='index.html'; return false;" >
-        
-           
+                Successfully edited record!
+                <input type="button" value ="Home" onclick="window.location.href='index.html'; return false;" >
+	    
         </div>
     </body>
 </html>

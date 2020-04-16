@@ -18,6 +18,11 @@
                             
 <input type="button" value="Add Candidate" 
 	onclick="window.location.href='addcandidate.jsp'; return false;">
+	
+<input type="button" value="Edit/Delete Candidate" 
+	onclick="window.location.href='searchcandidate.jsp'; return false;">
+	
+	
 
         </div>
     </body>

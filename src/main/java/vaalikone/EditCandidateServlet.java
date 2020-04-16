@@ -23,13 +23,13 @@ import persist.Candidate;
  * Servlet implementation class AddCandidateServlet
  */
 
-public class AddCandidateServlet extends HttpServlet {
+public class EditCandidateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddCandidateServlet() {
+    public EditCandidateServlet() {
 		
     }
 
@@ -49,7 +49,7 @@ public class AddCandidateServlet extends HttpServlet {
 		String miksi_eduskuntaan = request.getParameter("miksieduskuntaan");
 		String mita_asioita_haluat_edistaa = request.getParameter("mita_asioita_haluat_edistaa");
 		String ammatti = request.getParameter("ammatti");
-		
+		String search = request.getParameter("search");
 		
 		
 		
@@ -62,9 +62,9 @@ public class AddCandidateServlet extends HttpServlet {
 			if (con != null) {
 			
 			// create sql for insert
-			String sql = "insert into EHDOKKAAT "
-					   + "( SUKUNIMI,ETUNIMI,PUOLUE,KOTIPAIKKAKUNTA,IKA,MIKSI_EDUSKUNTAAN,MITA_ASIOITA_HALUAT_EDISTAA,AMMATTI) "
-					   + "values (  ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "UPDATE EHDOKKAAT "
+					   + "SET SUKUNIMI =?,ETUNIMI=?,PUOLUE=?,KOTIPAIKKAKUNTA=?,IKA=?,MIKSI_EDUSKUNTAAN=?,MITA_ASIOITA_HALUAT_EDISTAA=?,AMMATTI=? "
+					   + "WHERE SUKUNIMI = '"+search+ "' ";
 			
 			 PreparedStatement preparedStmt = con.prepareStatement(sql);
 			
@@ -85,7 +85,7 @@ public class AddCandidateServlet extends HttpServlet {
 			
 			  
 			  RequestDispatcher requestDispatcher = request
-	                    .getRequestDispatcher("/addquestions.jsp");
+	                    .getRequestDispatcher("/editquestions.jsp");
 	            requestDispatcher.forward(request, response);
 			} } catch (SQLException ex) {
 				

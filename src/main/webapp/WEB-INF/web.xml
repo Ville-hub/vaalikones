@@ -28,15 +28,36 @@
     <url-pattern>/AddCandidateServlet</url-pattern>
   </servlet-mapping>
 
-  <servlet>
+ <servlet>
     <servlet-name>AddCandidateQuestionsServlet</servlet-name>
     <servlet-class>vaalikone.AddCandidateQuestionsServlet</servlet-class>
   </servlet>
-
- <servlet-mapping>
+  
+  <servlet-mapping>
     <servlet-name>AddCandidateQuestionsServlet</servlet-name>
     <url-pattern>/AddCandidateQuestionsServlet</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>EditCandidateQuestionServlet</servlet-name>
+    <servlet-class>vaalikone.EditCandidateQuestionServlet</servlet-class>
+  </servlet>
+
+ <servlet-mapping>
+    <servlet-name>EditCandidateQuestionServlet</servlet-name>
+    <url-pattern>/EditCandidateQuestionServlet</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+    <servlet-name>EditCandidateServlet</servlet-name>
+    <servlet-class>vaalikone.EditCandidateServlet</servlet-class>
+  </servlet>
+
+ <servlet-mapping>
+    <servlet-name>EditCandidateServlet</servlet-name>
+    <url-pattern>/EditCandidateServlet</url-pattern>
+  </servlet-mapping>
+  
   
 
   <session-config>

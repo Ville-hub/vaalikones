@@ -23,9 +23,12 @@ and open the template in the editor.
                 <br>
         
 
-   Congrats! Your entry has been added succesfully!
-   
-   <input type="button" value ="Home" onclick="window.location.href='index.html'; return false;" >
+    <form action="/resultpage.jsp" method="get">
+	  <label for="fname">First name:</label><br>
+	  <input type="text" id="fname" name="search"><br>
+	<br> <br>
+	  <input type="submit" name ="submit" value="Submit">
+	</form> 
         
            
         </div>

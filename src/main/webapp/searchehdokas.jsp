@@ -22,11 +22,14 @@ and open the template in the editor.
             </div>
                 <br>
         
+<form action="/SearchEhdokasServlet">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname"><br>
+  <label for="fname">Last name:</label><br>
+  <input type="text" id="lname" name="lname"><br>
+  <input type="submit" value="Submit">
+</form> 
 
-   Congrats! Your entry has been added succesfully!
-   
-   <input type="button" value ="Home" onclick="window.location.href='index.html'; return false;" >
-        
            
         </div>
     </body>

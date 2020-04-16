@@ -19,13 +19,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class AddCandidateQuestionsServlet
  */
 
-public class AddCandidateQuestionsServlet extends HttpServlet {
+public class EditCandidateQuestionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddCandidateQuestionsServlet() {
+    public EditCandidateQuestionServlet() {
 
         // TODO Auto-generated constructor stub
     }
@@ -175,7 +175,36 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 						// gets the current highest Ehdokas_number from the table EHDOKKAAT ehdokas_id (last entered one through query)
 						try
 				        {
-				           
+							String driver = "com.mysql.jdbc.Driver";
+							String connectionUrl = "jdbc:mysql://localhost:3306/";
+							String database = "vaalikone";
+							String userid = "root";
+							String password = "password";
+							int id = 1;
+							try {
+							Class.forName(driver);
+							} catch (ClassNotFoundException e) {
+							e.printStackTrace();
+							}
+							Connection connection = null;
+							Statement statement = null;
+							//String search = String.valueOf(session.getAttribute("Search"));//Search
+							String search=request.getParameter("search");
+							try{
+								connection = DriverManager.getConnection(connectionUrl+database, userid, password);
+								statement=connection.createStatement();
+								
+								String sql1 ="SELECT EHDOKAS_ID from ehdokkaat where SUKUNIMI='"+search+"' ";
+								ResultSet resultSet1 = statement.executeQuery(sql1);
+								while(resultSet1.next()){
+									id = resultSet1.getInt("EHDOKAS_ID");
+								}
+								connection.close();
+								} catch (Exception e) {
+								e.printStackTrace();
+								}
+							
+
 				            Statement st;
 				            ResultSet rs;
 
@@ -195,17 +224,17 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 				            
 				            // handling question 1
 				        	if(question1option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+								String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID= ? AND KYSYMYS_ID=?";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
-								
-								 preparedStmt.setLong(1, i);
-								 preparedStmt.setString(2, "1");
-								 preparedStmt.setString(3, question1option1);
+								 preparedStmt.setString(1, question1option1);
+								 preparedStmt.setLong(2, id);
+								 preparedStmt.setString(3, "1");
+									 
 								
 
 								  preparedStmt.execute();
@@ -214,17 +243,16 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question1option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='1'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
-								 preparedStmt.setString(2, "1");
-								 preparedStmt.setString(3, question1option2);
+								 
+								 preparedStmt.setString(1, question1option2);
 								
 
 								  preparedStmt.execute();
@@ -233,15 +261,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question1option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='1'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "1");
 								 preparedStmt.setString(3, question1option3);
 								
@@ -252,15 +280,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question1option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='1'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "1");
 								 preparedStmt.setString(3, question1option4);
 								
@@ -271,15 +299,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question1option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='1'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "1");
 								 preparedStmt.setString(3, question1option5);
 								
@@ -291,15 +319,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 				          	
 				          	 // handling question 2
 				        	if(question2option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='2'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "2");
 								 preparedStmt.setString(3, question2option1);
 								
@@ -310,15 +338,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question2option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='2'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "2");
 								 preparedStmt.setString(3, question2option2);
 								
@@ -329,15 +357,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question2option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='2'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "2");
 								 preparedStmt.setString(3, question2option3);
 								
@@ -348,15 +376,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question2option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='2'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "2");
 								 preparedStmt.setString(3, question2option4);
 								
@@ -367,15 +395,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question2option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='2'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "2");
 								 preparedStmt.setString(3, question2option5);
 								
@@ -387,15 +415,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 				          	
 				       	 // handling question 3
 				        	if(question3option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='3'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "3");
 								 preparedStmt.setString(3, question3option1);
 								
@@ -406,15 +434,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question3option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='3'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "3");
 								 preparedStmt.setString(3, question3option2);
 								
@@ -425,15 +453,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question3option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='3'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "3");
 								 preparedStmt.setString(3, question3option3);
 								
@@ -444,15 +472,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question3option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='3'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "3");
 								 preparedStmt.setString(3, question3option4);
 								
@@ -463,15 +491,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question3option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='3'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "3");
 								 preparedStmt.setString(3, question3option5);
 								
@@ -483,15 +511,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 				          	
 				       	 // handling question 4
 				        	if(question4option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='4'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "4");
 								 preparedStmt.setString(3, question4option1);
 								
@@ -502,15 +530,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question4option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='4'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "4");
 								 preparedStmt.setString(3, question4option2);
 								
@@ -521,15 +549,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question4option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='4'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "4");
 								 preparedStmt.setString(3, question4option3);
 								
@@ -540,15 +568,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question4option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='4'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "4");
 								 preparedStmt.setString(3, question4option4);
 								
@@ -559,15 +587,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question4option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='4'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "4");
 								 preparedStmt.setString(3, question4option5);
 								
@@ -579,15 +607,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 				          	
 				       	 // handling question 5
 				        	if(question5option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='5'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "5");
 								 preparedStmt.setString(3, question5option1);
 								
@@ -598,15 +626,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question5option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='5'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "5");
 								 preparedStmt.setString(3, question5option2);
 								
@@ -617,15 +645,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question5option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='5'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "5");
 								 preparedStmt.setString(3, question5option3);
 								
@@ -636,15 +664,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question5option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='5'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "5");
 								 preparedStmt.setString(3, question5option4);
 								
@@ -655,15 +683,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question5option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='5'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "5");
 								 preparedStmt.setString(3, question5option5);
 								
@@ -675,15 +703,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 				          	
 				       	 // handling question 6
 				        	if(question6option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='6'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "6");
 								 preparedStmt.setString(3, question6option1);
 								
@@ -694,15 +722,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question6option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='6'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "6");
 								 preparedStmt.setString(3, question6option2);
 								
@@ -713,15 +741,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question6option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='6'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "6");
 								 preparedStmt.setString(3, question6option3);
 								
@@ -732,15 +760,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question6option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='6'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "6");
 								 preparedStmt.setString(3, question6option4);
 								
@@ -751,15 +779,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question6option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='6'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "6");
 								 preparedStmt.setString(3, question6option5);
 								
@@ -772,15 +800,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 				          	
 				       	 // handling question 7
 				        	if(question7option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='7'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "7");
 								 preparedStmt.setString(3, question7option1);
 								
@@ -791,15 +819,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question7option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='7'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "7");
 								 preparedStmt.setString(3, question7option2);
 								
@@ -810,15 +838,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question7option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='7'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "7");
 								 preparedStmt.setString(3, question7option3);
 								
@@ -829,15 +857,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question7option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='7'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "7");
 								 preparedStmt.setString(3, question7option4);
 								
@@ -848,15 +876,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question7option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='7'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "7");
 								 preparedStmt.setString(3, question7option5);
 								
@@ -868,15 +896,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 				          	
 				       	 // handling question 8
 				        	if(question8option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='8'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "8");
 								 preparedStmt.setString(3, question8option1);
 								
@@ -887,15 +915,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question8option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='8'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "8");
 								 preparedStmt.setString(3, question8option2);
 								
@@ -906,15 +934,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question8option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='8'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "8");
 								 preparedStmt.setString(3, question8option3);
 								
@@ -925,15 +953,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question8option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='8'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "8");
 								 preparedStmt.setString(3, question8option4);
 								
@@ -944,35 +972,35 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question8option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='8'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "8");
 								 preparedStmt.setString(3, question8option5);
 								
 
 								  preparedStmt.execute();
-								  
+								   
 									
 							}
 				          	
 				       	 // handling question 9
 				        	if(question9option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='9'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "9");
 								 preparedStmt.setString(3, question9option1);
 								
@@ -983,15 +1011,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question9option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='9'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "9");
 								 preparedStmt.setString(3, question9option2);
 								
@@ -1002,15 +1030,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question9option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='9'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "9");
 								 preparedStmt.setString(3, question9option3);
 								
@@ -1021,15 +1049,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question9option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='9'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "9");
 								 preparedStmt.setString(3, question9option4);
 								
@@ -1040,15 +1068,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question9option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='9'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "9");
 								 preparedStmt.setString(3, question9option5);
 								
@@ -1060,15 +1088,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 				          	
 				       	 // handling question 10
 				        	if(question10option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='10'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "10");
 								 preparedStmt.setString(3, question10option1);
 								
@@ -1079,15 +1107,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question10option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='10'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "10");
 								 preparedStmt.setString(3, question10option2);
 								
@@ -1098,15 +1126,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question10option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='10'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "10");
 								 preparedStmt.setString(3, question10option3);
 								
@@ -1117,15 +1145,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question10option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='10'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "10");
 								 preparedStmt.setString(3, question10option4);
 								
@@ -1136,15 +1164,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question10option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='10'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "10");
 								 preparedStmt.setString(3, question10option5);
 								
@@ -1156,15 +1184,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 				          	
 				       	 // handling question 11
 				        	if(question11option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='11'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "11");
 								 preparedStmt.setString(3, question11option1);
 								
@@ -1175,15 +1203,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question11option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='11'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "11");
 								 preparedStmt.setString(3, question11option2);
 								
@@ -1194,15 +1222,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question11option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='11'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "11");
 								 preparedStmt.setString(3, question11option3);
 								
@@ -1213,15 +1241,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question11option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='11'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "11");
 								 preparedStmt.setString(3, question11option4);
 								
@@ -1232,15 +1260,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question11option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='11'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "11");
 								 preparedStmt.setString(3, question11option5);
 								
@@ -1252,15 +1280,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 				          	
 				       	 // handling question 12
 				        	if(question12option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='12'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "12");
 								 preparedStmt.setString(3, question12option1);
 								
@@ -1271,15 +1299,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question12option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='12'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "12");
 								 preparedStmt.setString(3, question12option2);
 								
@@ -1290,15 +1318,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question12option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='12'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "12");
 								 preparedStmt.setString(3, question12option3);
 								
@@ -1309,15 +1337,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question12option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='12'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "12");
 								 preparedStmt.setString(3, question12option4);
 								
@@ -1328,15 +1356,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question12option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='12'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "12");
 								 preparedStmt.setString(3, question12option5);
 								
@@ -1348,15 +1376,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 				          	
 				       	 // handling question 13
 				        	if(question13option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='13'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "13");
 								 preparedStmt.setString(3, question13option1);
 								
@@ -1367,15 +1395,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question13option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='13'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "13");
 								 preparedStmt.setString(3, question13option2);
 								
@@ -1386,15 +1414,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question13option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='13'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "13");
 								 preparedStmt.setString(3, question13option3);
 								
@@ -1405,15 +1433,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question13option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='13'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "13");
 								 preparedStmt.setString(3, question13option4);
 								
@@ -1424,15 +1452,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question13option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='13'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "13");
 								 preparedStmt.setString(3, question13option5);
 								
@@ -1444,15 +1472,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 				          	
 				       	 // handling question 14
 				        	if(question14option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='14'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "14");
 								 preparedStmt.setString(3, question14option1);
 								
@@ -1463,15 +1491,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question14option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='14'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "14");
 								 preparedStmt.setString(3, question14option2);
 								
@@ -1482,15 +1510,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question14option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='14'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "14");
 								 preparedStmt.setString(3, question14option3);
 								
@@ -1501,15 +1529,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question14option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='14'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "14");
 								 preparedStmt.setString(3, question14option4);
 								
@@ -1520,15 +1548,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question14option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='14'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "14");
 								 preparedStmt.setString(3, question14option5);
 								
@@ -1540,15 +1568,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 				          	
 				       	 // handling question 15
 				        	if(question15option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='15'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "15");
 								 preparedStmt.setString(3, question15option1);
 								
@@ -1559,15 +1587,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question15option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='15'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "15");
 								 preparedStmt.setString(3, question15option2);
 								
@@ -1578,15 +1606,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question15option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='15'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "15");
 								 preparedStmt.setString(3, question15option3);
 								
@@ -1597,15 +1625,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question15option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='15'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "15");
 								 preparedStmt.setString(3, question15option4);
 								
@@ -1616,15 +1644,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question15option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='15'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "15");
 								 preparedStmt.setString(3, question15option5);
 								
@@ -1636,15 +1664,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 				          	
 				       	 // handling question 16
 				        	if(question16option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='16'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "16");
 								 preparedStmt.setString(3, question16option1);
 								
@@ -1655,15 +1683,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question16option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='16'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "16");
 								 preparedStmt.setString(3, question16option2);
 								
@@ -1674,15 +1702,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question16option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='16'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "16");
 								 preparedStmt.setString(3, question16option3);
 								
@@ -1693,15 +1721,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question16option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='16'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "16");
 								 preparedStmt.setString(3, question16option4);
 								
@@ -1712,15 +1740,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question16option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='16'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "16");
 								 preparedStmt.setString(3, question16option5);
 								
@@ -1732,15 +1760,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 				          	
 				       	 // handling question 17
 				        	if(question17option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='17'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "17");
 								 preparedStmt.setString(3, question17option1);
 								
@@ -1751,15 +1779,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question17option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='17'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "17");
 								 preparedStmt.setString(3, question17option2);
 								
@@ -1770,15 +1798,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question17option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='17'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "17");
 								 preparedStmt.setString(3, question17option3);
 								
@@ -1789,15 +1817,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question17option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='17'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "17");
 								 preparedStmt.setString(3, question17option4);
 								
@@ -1808,15 +1836,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question17option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='17'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "17");
 								 preparedStmt.setString(3, question17option5);
 								
@@ -1828,15 +1856,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 				          	
 				       	 // handling question 18
 				        	if(question18option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='18'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "18");
 								 preparedStmt.setString(3, question18option1);
 								
@@ -1847,15 +1875,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question18option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='18'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "18");
 								 preparedStmt.setString(3, question18option2);
 								
@@ -1866,15 +1894,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question18option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='18'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "18");
 								 preparedStmt.setString(3, question18option3);
 								
@@ -1885,15 +1913,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question18option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='18'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "18");
 								 preparedStmt.setString(3, question18option4);
 								
@@ -1904,15 +1932,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question18option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='18'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "18");
 								 preparedStmt.setString(3, question18option5);
 								
@@ -1924,15 +1952,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 				          	
 				       	 // handling question 19
 				        	if(question19option1 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='19'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "19");
 								 preparedStmt.setString(3, question19option1);
 								
@@ -1943,15 +1971,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				        	if(question19option2 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				        		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='19'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "19");
 								 preparedStmt.setString(3, question19option2);
 								
@@ -1962,15 +1990,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				            
 				          	if(question19option3 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='19'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "19");
 								 preparedStmt.setString(3, question19option3);
 								
@@ -1981,15 +2009,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question19option4 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='19'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "19");
 								 preparedStmt.setString(3, question19option4);
 								
@@ -2000,15 +2028,15 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				          	if(question19option5 != null) {
-								String sql = "insert into VASTAUKSET "
-										   + "(EHDOKAS_ID, KYSYMYS_ID, VASTAUS) "
-										   + "values (  ?, ?, ?)";
+				          		String sql = "UPDATE VASTAUKSET "
+										   + "SET VASTAUS=? "
+										   + "WHERE EHDOKAS_ID='"+id+"' AND KYSYMYS_ID='19'";
 								
 								 PreparedStatement preparedStmt = con.prepareStatement(sql);
 								
 								
 								
-								 preparedStmt.setLong(1, i);
+								 preparedStmt.setLong(1, id);
 								 preparedStmt.setString(2, "19");
 								 preparedStmt.setString(3, question19option5);
 								
@@ -2019,7 +2047,7 @@ public class AddCandidateQuestionsServlet extends HttpServlet {
 							}
 				          	
 				            RequestDispatcher requestDispatcher = request
-				                    .getRequestDispatcher("/added_succesfully.jsp");
+				                    .getRequestDispatcher("/editsuccess.jsp");
 				            requestDispatcher.forward(request, response);
 				            con.close();
 				            st.close();

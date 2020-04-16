@@ -26,7 +26,7 @@ and open the template in the editor.
                 <br>
         
 
-    <form action="/AddCandidateQuestionsServlet" method="get">
+    <form action="/EditCandidateQuestionServlet" method="get">
 
   
  Kysymys 1:  Suomessa on liian helppo el‰‰ sosiaaliturvan varassa <br>
@@ -507,6 +507,7 @@ Kysymys 9: Lapsilisi‰ on korotettava ja laitettava verolle...<br>
   <label class="form-check-label" for="inlineRadio2">5</label>
 </div>
 
+<input type="hidden" id="search" name="search" value="<%=String.valueOf(session.getAttribute("Search"))%>">
 
 <br> <br>
   <input type="submit" name ="submit" value="Submit">
